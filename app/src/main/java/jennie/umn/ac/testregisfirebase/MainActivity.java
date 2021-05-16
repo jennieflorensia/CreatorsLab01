@@ -29,7 +29,7 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity {
 
     private EditText etUsername, etEmail, etPassword;
-    private Button Signup;
+    private Button Signup, Login;
 
     FirebaseAuth auth;
     FirebaseDatabase database;
@@ -45,6 +45,14 @@ public class MainActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.et_sign_up_email);
         etPassword = findViewById(R.id.et_sign_up_password);
         Signup = findViewById(R.id.btn_register_sign_up);
+        Login = findViewById(R.id.btn_register_login);
+
+        Login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            }
+        });
 
         Signup.setOnClickListener(new View.OnClickListener() {
             @Override
