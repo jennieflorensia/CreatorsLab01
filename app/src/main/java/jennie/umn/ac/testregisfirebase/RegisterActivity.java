@@ -18,15 +18,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     private EditText etUsername, etEmail, etPassword;
     private Button Signup, Login;
@@ -38,26 +35,26 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_register);
 
         auth = FirebaseAuth.getInstance();
         etUsername = findViewById(R.id.et_sign_up_username);
         etEmail = findViewById(R.id.et_sign_up_email);
         etPassword = findViewById(R.id.et_sign_up_password);
-        Signup = findViewById(R.id.btn_register_sign_up);
-        Login = findViewById(R.id.btn_register_login);
+        Signup = findViewById(R.id.regis_btn_signup);
+        Login = findViewById(R.id.regis_btn_login);
 
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
             }
         });
 
         Signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pd = new ProgressDialog(MainActivity.this);
+                pd = new ProgressDialog(RegisterActivity.this);
                 pd.setMessage("Please wait...");
                 pd.show();
 
@@ -70,10 +67,10 @@ public class MainActivity extends AppCompatActivity {
 
                 if(TextUtils.isEmpty(username) || TextUtils.isEmpty(email) || TextUtils.isEmpty(password))
                 {
-                    Toast.makeText(MainActivity.this, "All fields are required!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "All fields are required!", Toast.LENGTH_SHORT).show();
                 }else if(password.length() < 6)
                 {
-                    Toast.makeText(MainActivity.this, "Password must be 6 characters or more", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Password must be 6 characters or more", Toast.LENGTH_SHORT).show();
                 }else
                 {
                     register(username, email, password);
@@ -85,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void register(String username, String email, String password)
     {
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
@@ -104,13 +101,13 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             pd.dismiss();
-                            startActivity(new Intent(MainActivity.this, HomeActivity.class));
+                            startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
                         }
                     });
                     //FirebaseUser user = auth.getCurrentUser();
                 } else {
                     pd.dismiss();
-                    Toast.makeText(MainActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
