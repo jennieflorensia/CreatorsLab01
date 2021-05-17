@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="@color/dark_grey"
     android:orientation="vertical"
     tools:context=".LoginActivity">
 
@@ -43,7 +43,7 @@
             android:layout_marginBottom="100sp"
             android:fontFamily="@font/nunito"
             android:text="where every creator dreams comes true"
-            android:textColor="@color/base_red"
+            android:textColor="@color/red2"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -67,8 +67,8 @@
             android:layout_marginStart="40sp"
             android:fontFamily="@font/nunito"
             android:text="welcome back,"
-            android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textColor="@color/light_grey"
+            android:textSize="25sp"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -76,6 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15sp"
             android:background="@drawable/round_et"
+            android:backgroundTint="@color/dark_grey"
             android:padding="10sp">
 
             <EditText
@@ -97,6 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15sp"
             android:background="@drawable/round_et"
+            android:backgroundTint="@color/dark_grey"
             android:padding="10sp">
 
             <EditText
@@ -124,6 +126,7 @@
                 android:layout_width="125sp"
                 android:layout_height="wrap_content"
                 android:layout_margin="12.5sp"
+                android:background="@drawable/round_et"
                 android:backgroundTint="@color/et_login"
                 android:fontFamily="@font/nunito"
                 android:text="LOGIN"
@@ -136,6 +139,7 @@
                 android:layout_width="125sp"
                 android:layout_height="wrap_content"
                 android:layout_margin="12.5dp"
+                android:background="@drawable/round_et"
                 android:backgroundTint="@color/et_login"
                 android:fontFamily="@font/nunito"
                 android:text="SIGN UP"
