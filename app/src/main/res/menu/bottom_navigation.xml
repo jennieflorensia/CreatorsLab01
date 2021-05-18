@@ -6,6 +6,11 @@
         android:title=""/>
 
     <item
+        android:id="@+id/nav_search"
+        android:icon="@drawable/ic_search_light"
+        android:title=""/>
+
+    <item
         android:id="@+id/nav_comm"
         android:icon="@drawable/ic_home"
         android:title=""/>
@@ -19,4 +24,6 @@
         android:id="@+id/nav_profile"
         android:icon="@drawable/ic_home"
         android:title=""/>
+
+
 </menu>

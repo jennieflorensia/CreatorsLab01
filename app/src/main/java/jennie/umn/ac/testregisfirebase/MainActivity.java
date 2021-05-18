@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import jennie.umn.ac.testregisfirebase.Fragments.CommissionFragment;
 import jennie.umn.ac.testregisfirebase.Fragments.HomeFragment;
 import jennie.umn.ac.testregisfirebase.Fragments.ProfileFragment;
+import jennie.umn.ac.testregisfirebase.Fragments.SearchFragment;
 
 import static jennie.umn.ac.testregisfirebase.R.*;
 
@@ -44,9 +45,15 @@ public class MainActivity extends AppCompatActivity {
                 case id.nav_home:
                     selectedfragment = new HomeFragment();
                     break;
+
+                case id.nav_search:
+                    selectedfragment = new SearchFragment();
+                    break;
+
                 case id.nav_comm:
                     selectedfragment = new CommissionFragment();
                     break;
+
                 case id.nav_post:
                     selectedfragment = null;
                     startActivity(new Intent(MainActivity.this, PostActivity.class));
