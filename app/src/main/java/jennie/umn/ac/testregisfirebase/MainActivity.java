@@ -22,51 +22,51 @@ import static jennie.umn.ac.testregisfirebase.R.*;
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
-    Fragment selectedfragment = null;
+    Fragment selectedFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        bottomNavigationView = findViewById(id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
 
         getSupportFragmentManager().beginTransaction().replace(id.fragment_container, new HomeFragment()).commit();
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener
-            navigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
+        new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
             switch (item.getItemId()){
                 case id.nav_home:
-                    selectedfragment = new HomeFragment();
+                    selectedFragment = new HomeFragment();
                     break;
 
                 case id.nav_search:
-                    selectedfragment = new SearchFragment();
+                    selectedFragment = new SearchFragment();
                     break;
 
                 case id.nav_comm:
-                    selectedfragment = new CommissionFragment();
+                    selectedFragment = new CommissionFragment();
                     break;
 
                 case id.nav_post:
-                    selectedfragment = null;
+                    selectedFragment = null;
                     startActivity(new Intent(MainActivity.this, PostActivity.class));
                     break;
                 case id.nav_profile:
                     SharedPreferences.Editor editor = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
                     editor.putString("profileid", FirebaseAuth.getInstance().getCurrentUser().getUid());
                     editor.apply();
-                    selectedfragment = new ProfileFragment();
+                    selectedFragment = new ProfileFragment();
                     break;
             }
-            if(selectedfragment != null){
-                getSupportFragmentManager().beginTransaction().replace(id.fragment_container, selectedfragment).commit();
+            if(selectedFragment != null){
+                getSupportFragmentManager().beginTransaction().replace(id.fragment_container, selectedFragment).commit();
             }
 
             return true;
