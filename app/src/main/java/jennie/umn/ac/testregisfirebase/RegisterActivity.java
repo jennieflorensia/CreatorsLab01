@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,7 +27,8 @@ import java.util.HashMap;
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText etUsername, etEmail, etPassword;
-    private Button Signup, Login;
+    private Button Signup;
+    private TextView twLogin;
 
     FirebaseAuth auth;
     FirebaseDatabase database;
@@ -42,9 +44,9 @@ public class RegisterActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.et_sign_up_email);
         etPassword = findViewById(R.id.et_sign_up_password);
         Signup = findViewById(R.id.regis_btn_signup);
-        Login = findViewById(R.id.regis_btn_login);
+        twLogin = findViewById(R.id.tw_login);
 
-        Login.setOnClickListener(new View.OnClickListener() {
+        twLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));

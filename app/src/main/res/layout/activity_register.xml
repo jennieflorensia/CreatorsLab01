@@ -130,19 +130,29 @@
             android:textSize="15sp"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/regis_btn_login"
-            android:layout_width="200sp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/round_et"
-            android:backgroundTint="@color/base_red"
-            android:fontFamily="@font/nunito"
-            android:text="LOGIN"
-            android:textColor="@color/light_grey"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:layout_marginTop="10dp">
 
+            <TextView
+                android:id="@+id/tw_login"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:onClick="onClick"
+                android:clickable="true"
+                android:text="@string/login"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/nunito"
+                android:textColor="@color/light_grey"
+                app:layout_constraintHorizontal_bias=".5"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
