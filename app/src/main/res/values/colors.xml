@@ -14,4 +14,5 @@
     <color name="light_grey">#EFEFEF</color>
     <color name="dark_grey">#3E424B</color>
     <color name="transparent">#00000000</color>
+    <color name="accent">#CCCCCC</color>
 </resources>
