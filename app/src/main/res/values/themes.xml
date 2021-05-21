@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.TestRegisFireBase" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.TestRegisFireBase" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/et_login</item>
         <item name="colorPrimaryVariant">@color/base_red</item>

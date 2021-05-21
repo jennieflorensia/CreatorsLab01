@@ -26,11 +26,11 @@ public class Post {
         this.postid = postid;
     }
 
-    public String getPostImage() {
+    public String getPostimage() {
         return postimage;
     }
 
-    public void setPostImage(String postimage) {
+    public void setPostimage(String postimage) {
         this.postimage = postimage;
     }
 

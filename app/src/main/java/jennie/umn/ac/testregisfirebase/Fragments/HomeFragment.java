@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     followingList.add(snapshot.getKey());
                 }
-                readPost();
+                readPosts();
             }
 
             @Override
@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void readPost() {
+    private void readPosts() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
 
         reference.addValueEventListener(new ValueEventListener() {
