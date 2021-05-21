@@ -39,7 +39,7 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
 
-        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setReverseLayout(true);
@@ -63,12 +63,11 @@ public class HomeFragment extends Fragment {
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 followingList.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    followingList.add(dataSnapshot.getKey());
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    followingList.add(snapshot.getKey());
                 }
-
                 readPost();
             }
 
@@ -84,10 +83,10 @@ public class HomeFragment extends Fragment {
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 postLists.clear();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Post post = dataSnapshot.getValue(Post.class);
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Post post = snapshot.getValue(Post.class);
                     for (String id : followingList) {
                         if (post.getPublisher().equals(id)) {
                             postLists.add(post);

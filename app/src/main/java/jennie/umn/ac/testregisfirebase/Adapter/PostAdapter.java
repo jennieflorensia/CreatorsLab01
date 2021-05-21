@@ -39,36 +39,36 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.post_item, parent, false);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.post_item, viewGroup, false);
         return new PostAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        Post post = mPost.get(position);
+        Post post = mPost.get(i);
 
-        Glide.with(mContext).load(post.getPostImage()).into(holder.post_image);
+        Glide.with(mContext).load(post.getPostImage()).into(viewHolder.post_image);
 
-        if(post.getDescription().equals("")) {
-            holder.description.setVisibility(View.GONE);
+        if (post.getDescription().equals("")) {
+            viewHolder.description.setVisibility(View.GONE);
         } else {
-            holder.description.setVisibility(View.VISIBLE);
-            holder.description.setText(post.getDescription());
+            viewHolder.description.setVisibility(View.VISIBLE);
+            viewHolder.description.setText(post.getDescription());
         }
-        PublisherInfo(holder.image_profile, holder.username, holder.publisher, post.getPublisher());
-        isLiked(post.getPostId(), holder.like);
-        nrLikes(holder.likes, post.getPostId());
+        PublisherInfo(viewHolder.image_profile, viewHolder.username, viewHolder.publisher, post.getPublisher());
+        isLiked(post.getPostid(), viewHolder.like);
+        nrLikes(viewHolder.likes, post.getPostid());
 
-        holder.like.setOnClickListener(new View.OnClickListener() {
+        viewHolder.like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (holder.like.getTag().equals("like")) {
-                    FirebaseDatabase.getInstance().getReference().child("Likes").child(post.getPostId()).child(firebaseUser.getUid()).setValue(true);
+                if (viewHolder.like.getTag().equals("like")) {
+                    FirebaseDatabase.getInstance().getReference().child("Likes").child(post.getPostid()).child(firebaseUser.getUid()).setValue(true);
                 } else {
-                    FirebaseDatabase.getInstance().getReference().child("Likes").child(post.getPostId()).child(firebaseUser.getUid()).removeValue();
+                    FirebaseDatabase.getInstance().getReference().child("Likes").child(post.getPostid()).child(firebaseUser.getUid()).removeValue();
                 }
             }
         });
@@ -101,18 +101,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         }
     }
 
-    private void isLiked(String postId, final ImageView imageView) {
+    private void isLiked(String postid, final ImageView imageView) {
 
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
                 .child("Likes")
-                .child(postId);
+                .child(postid);
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if (snapshot.child(firebaseUser.getUid()).exists()) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child(firebaseUser.getUid()).exists()) {
                     imageView.setImageResource(R.drawable.ic_liked);
                     imageView.setTag("liked");
                 } else {
@@ -128,15 +128,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         });
     }
 
-    private void nrLikes(final TextView likes, String postId) {
+    private void nrLikes(final TextView likes, String postid) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
                 .child("Likes")
-                .child(postId);
+                .child(postid);
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                likes.setText(snapshot.getChildrenCount() + " likes");
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                likes.setText(dataSnapshot.getChildrenCount()+" likes");
             }
 
             @Override
@@ -146,13 +146,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         });
     }
 
-    private void PublisherInfo(ImageView image_profile, TextView username, TextView publisher, String userId) {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
+    private void PublisherInfo(ImageView image_profile, TextView username, TextView publisher, String userid) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                User user = snapshot.getValue(User.class);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
                 Glide.with(mContext).load(user.getImageurl()).into(image_profile);
                 username.setText(user.getUsername());
                 publisher.setText(user.getUsername());
