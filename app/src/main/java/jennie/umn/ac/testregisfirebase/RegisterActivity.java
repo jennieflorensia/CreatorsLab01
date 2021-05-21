@@ -103,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             pd.dismiss();
-                            startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+                            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                         }
                     });
                     //FirebaseUser user = auth.getCurrentUser();
