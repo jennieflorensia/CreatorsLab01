@@ -22,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-import jennie.umn.ac.testregisfirebase.CommentActivity;
+import jennie.umn.ac.testregisfirebase.CommentsActivity;
 import jennie.umn.ac.testregisfirebase.Model.Post;
 import jennie.umn.ac.testregisfirebase.Model.User;
 import jennie.umn.ac.testregisfirebase.R;
@@ -80,7 +80,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         viewHolder.comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, CommentActivity.class);
+                Intent intent = new Intent(mContext, CommentsActivity.class);
                 intent.putExtra("postid", post.getPostid());
                 intent.putExtra("publisherid", post.getPublisher());
                 mContext.startActivity(intent);
@@ -90,7 +90,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         viewHolder.comments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mContext, CommentActivity.class);
+                Intent intent = new Intent(mContext, CommentsActivity.class);
                 intent.putExtra("postid", post.getPostid());
                 intent.putExtra("publisherid", post.getPublisher());
                 mContext.startActivity(intent);
@@ -131,7 +131,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                comments.setText("View all "+dataSnapshot.getChildrenCount()+ " comments");
+                comments.setText(dataSnapshot.getChildrenCount()+ " comments");
             }
 
             @Override

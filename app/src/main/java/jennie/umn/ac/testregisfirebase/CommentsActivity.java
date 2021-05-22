@@ -32,7 +32,7 @@ import jennie.umn.ac.testregisfirebase.Adapter.PostAdapter;
 import jennie.umn.ac.testregisfirebase.Model.Comment;
 import jennie.umn.ac.testregisfirebase.Model.User;
 
-public class CommentActivity extends AppCompatActivity {
+public class CommentsActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private CommentAdapter commentAdapter;
@@ -50,7 +50,7 @@ public class CommentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comment);
+        setContentView(R.layout.activity_comments);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -85,7 +85,7 @@ public class CommentActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (addcomment.getText().toString().equals("")) {
-                    Toast.makeText(CommentActivity.this, "You can't send an empty comment", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CommentsActivity.this, "You can't send an empty comment", Toast.LENGTH_SHORT).show();
                 } else {
                     AddComment();
                 }

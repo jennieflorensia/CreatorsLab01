@@ -87,10 +87,10 @@
                 android:layout_marginStart="8dp"
                 android:textColor="@color/light_grey"
                 android:textStyle="bold"
-                android:text="0"
+                android:text="0 likes"
                 android:fontFamily="@font/nunito"
                 android:layout_gravity="center_vertical"
-                android:layout_weight=".5"/>
+                android:layout_weight="1"/>
 
             <ImageView
                 android:id="@+id/comment"
@@ -107,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:textColor="@color/light_grey"
-                android:text="0"
+                android:text="0 comments"
                 android:textStyle="bold"
                 android:fontFamily="@font/nunito"
                 android:layout_gravity="center_vertical"/>

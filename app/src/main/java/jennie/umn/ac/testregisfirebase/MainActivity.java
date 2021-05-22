@@ -83,21 +83,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.nav_search:
                 fragment = new SearchFragment();
                 break;
-            case id.nav_post:
-                selectedFragment = null;
-                startActivity(new Intent(MainActivity.this, PostActivity.class));
-                break;
             case R.id.nav_comm:
                 fragment = new CommissionFragment();
                 break;
-
             case id.nav_profile:
                 SharedPreferences.Editor editor = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
                 editor.putString("profileid", FirebaseAuth.getInstance().getCurrentUser().getUid());
                 editor.apply();
-                selectedFragment = new ProfileFragment();
+                fragment = new ProfileFragment();
                 break;
-
         }
         return loadFragment(fragment);
     }
