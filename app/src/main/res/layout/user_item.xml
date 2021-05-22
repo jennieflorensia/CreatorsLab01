@@ -26,8 +26,9 @@
             android:id="@+id/username"
             android:text="username"
             android:maxLines="1"
+            android:fontFamily="@font/nunito"
             android:textStyle="bold"
-            android:textColor="@color/black"/>
+            android:textColor="@color/red2"/>
     </LinearLayout>
 
     <Button

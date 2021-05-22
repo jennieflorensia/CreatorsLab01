@@ -3,13 +3,16 @@ package jennie.umn.ac.testregisfirebase;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
 import jennie.umn.ac.testregisfirebase.Fragments.CommissionFragment;
@@ -22,6 +25,7 @@ import static jennie.umn.ac.testregisfirebase.R.*;
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
     BottomNavigationView bottomNavigationView;
+    FloatingActionButton fabPost;
     Fragment selectedFragment = null;
 
     @Override
@@ -32,7 +36,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         loadFragment(new HomeFragment());
 
+        FloatingActionButton fab = findViewById(id.nav_post);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, PostActivity.class));
+            }
+        });
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 

@@ -11,11 +11,6 @@
         android:title=""/>
 
     <item
-        android:id="@+id/nav_post"
-        android:icon="@drawable/ic_post_light"
-        android:title=""/>
-
-    <item
         android:id="@+id/nav_comm"
         android:icon="@drawable/ic_comm_light"
         android:title=""/>

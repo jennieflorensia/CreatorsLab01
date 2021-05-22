@@ -59,7 +59,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             viewHolder.description.setText(post.getDescription());
         }
     
-        PublisherInfo(viewHolder.image_profile, viewHolder.username, viewHolder.publisher, post.getPublisher());
+        PublisherInfo(viewHolder.image_profile, viewHolder.username, post.getPublisher());
         isLiked(post.getPostid(), viewHolder.like);
         nrLikes(viewHolder.likes, post.getPostid());
 
@@ -83,7 +83,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView image_profile, post_image, like, comment, save;
-        public TextView username, likes, publisher, description, comments;
+        public TextView username, likes, description, comments;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,11 +92,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             post_image = itemView.findViewById(R.id.post_image);
             like = itemView.findViewById(R.id.like);
             comment = itemView.findViewById(R.id.comment);
-            save = itemView.findViewById(R.id.save);
+            // save = itemView.findViewById(R.id.save);
 
             username = itemView.findViewById(R.id.username);
             likes = itemView.findViewById(R.id.likes);
-            publisher = itemView.findViewById(R.id.publisher);
+            //publisher = itemView.findViewById(R.id.publisher);
             description = itemView.findViewById(R.id.description);
             comments = itemView.findViewById(R.id.comments);
         }
@@ -147,7 +147,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         });
     }
 
-    private void PublisherInfo(final ImageView image_profile, final TextView username, final TextView publisher, final String userid) {
+    private void PublisherInfo(final ImageView image_profile, final TextView username, final String userid) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
         reference.addValueEventListener(new ValueEventListener() {
@@ -156,7 +156,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 User user = dataSnapshot.getValue(User.class);
                 Glide.with(mContext).load(user.getImageurl()).into(image_profile);
                 username.setText(user.getUsername());
-                publisher.setText(user.getUsername());
+//                publisher.setText(user.getUsername());
             }
 
             @Override
