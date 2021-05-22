@@ -36,6 +36,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
+        Bundle intent = getIntent().getExtras();
+        if (intent != null) {
+            String publisher = intent.getString("publisherid");
+
+            SharedPreferences.Editor editor = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
+            editor.putString("profileid", publisher);
+            editor.apply();
+
+            getSupportFragmentManager().beginTransaction().replace(id.fragment_container, new ProfileFragment()).commit();
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(id.fragment_container, new HomeFragment()).commit();
+        }
+
         getSupportFragmentManager().beginTransaction().replace(id.fragment_container, new HomeFragment()).commit();
     }
 
