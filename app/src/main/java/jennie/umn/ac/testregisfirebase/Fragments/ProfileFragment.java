@@ -6,12 +6,16 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +27,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
+import jennie.umn.ac.testregisfirebase.Adapter.PhotosAdapter;
 import jennie.umn.ac.testregisfirebase.Model.Post;
 import jennie.umn.ac.testregisfirebase.Model.User;
 import jennie.umn.ac.testregisfirebase.R;
@@ -32,6 +42,10 @@ public class ProfileFragment extends Fragment {
     ImageView image_profile, btnback;
     TextView posts, bio, username;
     Button btnEditProfile, btnDetails;
+
+    RecyclerView recyclerView;
+    PhotosAdapter photosAdapter;
+    List<Post> postList;
 
     FirebaseUser firebaseUser;
     String profileid;
@@ -54,7 +68,16 @@ public class ProfileFragment extends Fragment {
         btnEditProfile = view.findViewById(R.id.btn_edit_profile);
         btnDetails = view.findViewById(R.id.btn_details);
 
+        recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(), 3);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        photosAdapter = new PhotosAdapter(getContext(), postList);
+        postList = new ArrayList<>();
+        recyclerView.setAdapter(photosAdapter);
+
         userInfo();
+        myphotos();
 
         if(profileid.equals(firebaseUser.getUid())){
             btnEditProfile.setText("Edit Profile");
@@ -111,6 +134,28 @@ public class ProfileFragment extends Fragment {
                     }
                 }
                 posts.setText(""+i);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private void myphotos(){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                postList.clear();
+                for(DataSnapshot snapshot1 : dataSnapshot.getChildren()){
+                    Post post = snapshot1.getValue(Post.class);
+                    if (post.getPublisher().equals(profileid)){
+                        postList.add(post);
+                    }
+                }
+                Collections.reverse(postList);
+                photosAdapter.notifyDataSetChanged();
             }
 
             @Override
