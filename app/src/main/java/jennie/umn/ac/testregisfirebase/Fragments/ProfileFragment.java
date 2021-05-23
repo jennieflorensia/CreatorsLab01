@@ -77,6 +77,7 @@ public class ProfileFragment extends Fragment {
         photosAdapter = new PhotosAdapter(getContext(), postList);
         recyclerView.setAdapter(photosAdapter);
 
+        getNrPosts();
         userInfo();
         myphotos();
 
@@ -143,6 +144,30 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
+
+    private void getNrPosts(){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int i=0;
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Post post = snapshot.getValue(Post.class);
+                    if (post.getPublisher().equals(profileid)){
+                        i++;
+                    }
+                }
+
+                posts.setText(""+i);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void myphotos(){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
         reference.addValueEventListener(new ValueEventListener() {
