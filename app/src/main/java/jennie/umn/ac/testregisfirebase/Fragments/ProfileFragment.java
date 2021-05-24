@@ -123,28 +123,6 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    private void getPosts(){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int i = 0;
-                for(DataSnapshot snapshot1 : dataSnapshot.getChildren()){
-                    Post post = snapshot1.getValue(Post.class);
-                    if (post.getPublisher().equals(profileid)){
-                        i++;
-                    }
-                }
-                posts.setText(""+i);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
     private void getNrPosts(){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
         reference.addValueEventListener(new ValueEventListener() {
