@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -77,6 +78,8 @@ public class LoginActivity extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(DataSnapshot snapshot) {
                                         pd.dismiss();
+                                        Shared.setLoggedInStatus(getBaseContext(), true);
+                                        Shared.setLoggedInUser(getBaseContext(), email);
                                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                     }
 
@@ -96,5 +99,18 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (Shared.getLoggedInStatus(getBaseContext())){
+            //pd.dismiss();
+            //kalau udah ke login
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            finish();
+        }
+        //pd.dismiss();
     }
 }

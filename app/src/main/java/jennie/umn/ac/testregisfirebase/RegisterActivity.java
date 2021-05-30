@@ -103,6 +103,8 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             pd.dismiss();
+                            Shared.setRegisteredUser(getBaseContext(), email);
+                            Shared.setLoggedInStatus(getBaseContext(), true);
                             startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                         }
                     });
