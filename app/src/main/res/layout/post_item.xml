@@ -48,6 +48,7 @@
                     android:layout_marginStart="10dp"/>
 
             </LinearLayout>
+
         </LinearLayout>
 
         <androidx.cardview.widget.CardView
@@ -77,8 +78,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/ic_like"
-                android:layout_gravity="center_vertical"
-                />
+                android:layout_gravity="center_vertical" />
 
             <TextView
                 android:id="@+id/likes"
@@ -90,7 +90,7 @@
                 android:text="0 likes"
                 android:fontFamily="@font/nunito"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <ImageView
                 android:id="@+id/comment"
@@ -99,7 +99,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@id/like"
                 android:src="@drawable/ic_comment"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical" />
 
             <TextView
                 android:id="@+id/comments"
@@ -110,7 +110,7 @@
                 android:text="0 comments"
                 android:textStyle="bold"
                 android:fontFamily="@font/nunito"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical" />
 
 <!--            <ImageView-->
 <!--                android:id="@+id/save"-->
