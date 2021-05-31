@@ -1,6 +1,7 @@
 package jennie.umn.ac.testregisfirebase.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +35,8 @@ import java.util.Collections;
 import java.util.List;
 
 import jennie.umn.ac.testregisfirebase.Adapter.PhotosAdapter;
+import jennie.umn.ac.testregisfirebase.LoginActivity;
+import jennie.umn.ac.testregisfirebase.MainActivity;
 import jennie.umn.ac.testregisfirebase.Model.Post;
 import jennie.umn.ac.testregisfirebase.Model.User;
 import jennie.umn.ac.testregisfirebase.R;
@@ -41,13 +45,14 @@ public class ProfileFragment extends Fragment {
 
     ImageView image_profile, btnback;
     TextView posts, bio, username;
-    Button btnEditProfile, btnDetails;
+    Button btnEditProfile, btnLogout;
 
     RecyclerView recyclerView;
     PhotosAdapter photosAdapter;
     List<Post> postList;
 
     FirebaseUser firebaseUser;
+    FirebaseAuth mFirebaseAuth;
     String profileid;
 
     @Override
@@ -56,6 +61,7 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        mFirebaseAuth = FirebaseAuth.getInstance();
 
         SharedPreferences prefs = getContext().getSharedPreferences("PREFS", Context.MODE_PRIVATE);
         profileid = prefs.getString("profileid", "none");
@@ -66,7 +72,7 @@ public class ProfileFragment extends Fragment {
         bio = view.findViewById(R.id.bio);
         username = view.findViewById(R.id.username);
         btnEditProfile = view.findViewById(R.id.btn_edit_profile);
-        btnDetails = view.findViewById(R.id.btn_details);
+        btnLogout = view.findViewById(R.id.btn_logout);
 
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -97,6 +103,18 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
+
+//        btnLogout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//               mFirebaseAuth.signOut();
+//               Intent intent = new Intent(getActivity(), LoginActivity.class);
+//               intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//               startActivity(intent);
+//
+//
+//            }
+//        });
 
         return view;
     }
