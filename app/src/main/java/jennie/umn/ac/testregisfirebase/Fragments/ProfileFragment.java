@@ -35,6 +35,7 @@ import java.util.Collections;
 import java.util.List;
 
 import jennie.umn.ac.testregisfirebase.Adapter.PhotosAdapter;
+import jennie.umn.ac.testregisfirebase.EditProfileActivity;
 import jennie.umn.ac.testregisfirebase.LoginActivity;
 import jennie.umn.ac.testregisfirebase.MainActivity;
 import jennie.umn.ac.testregisfirebase.Model.Post;
@@ -97,7 +98,7 @@ public class ProfileFragment extends Fragment {
                 String btn = btnEditProfile.getText().toString();
 
                 if(btn.equals("Edit Profile")){
-                    //go to editprofile
+                    startActivity(new Intent(getContext(), EditProfileActivity.class));
                 } else if(btn.equals("Details")){
                     //go to detail commission
                 }
