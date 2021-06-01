@@ -41,6 +41,7 @@ import jennie.umn.ac.testregisfirebase.MainActivity;
 import jennie.umn.ac.testregisfirebase.Model.Post;
 import jennie.umn.ac.testregisfirebase.Model.User;
 import jennie.umn.ac.testregisfirebase.R;
+import jennie.umn.ac.testregisfirebase.Shared;
 
 public class ProfileFragment extends Fragment {
 
@@ -105,17 +106,16 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-//        btnLogout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//               mFirebaseAuth.signOut();
-//               Intent intent = new Intent(getActivity(), LoginActivity.class);
-//               intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//               startActivity(intent);
-//
-//
-//            }
-//        });
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               mFirebaseAuth.signOut();
+               Shared.clearLoggedInUser(getContext());
+               Intent intent = new Intent(getActivity(), LoginActivity.class);
+               intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+               startActivity(intent);
+            }
+        });
 
         return view;
     }
