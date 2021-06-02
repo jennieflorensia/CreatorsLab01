@@ -92,6 +92,9 @@ public class ProfileFragment extends Fragment {
 
         if(profileid.equals(firebaseUser.getUid())){
             btnEditProfile.setText("Edit Profile");
+        } else{
+            checkFollow();
+            btnLogout.setVisibility(View.GONE);
         }
 
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
@@ -101,8 +104,16 @@ public class ProfileFragment extends Fragment {
 
                 if(btn.equals("Edit Profile")){
                     startActivity(new Intent(getContext(), EditProfileActivity.class));
-                } else if(btn.equals("Details")){
-                    //go to detail commission
+                } else if(btn.equals("follow")){
+                    FirebaseDatabase.getInstance().getReference().child("Follow").child(firebaseUser.getUid())
+                            .child("following").child(profileid).setValue(true);
+                    FirebaseDatabase.getInstance().getReference().child("Follow").child(profileid)
+                            .child("followers").child(firebaseUser.getUid()).setValue(true);
+                } else if(btn.equals("following")){
+                    FirebaseDatabase.getInstance().getReference().child("Follow").child(firebaseUser.getUid())
+                            .child("following").child(profileid).removeValue();
+                    FirebaseDatabase.getInstance().getReference().child("Follow").child(profileid)
+                            .child("followers").child(firebaseUser.getUid()).removeValue();
                 }
             }
         });
@@ -146,6 +157,27 @@ public class ProfileFragment extends Fragment {
                 Glide.with(getContext()).load(user.getImageurl()).into(image_profile);
                 username.setText(user.getUsername());
                 bio.setText(user.getBio());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void checkFollow(){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
+                .child("Follow").child(firebaseUser.getUid()).child("following");
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.child(profileid).exists()){
+                    btnEditProfile.setText("following");
+                }else{
+                    btnEditProfile.setText("follow");
+                }
             }
 
             @Override
