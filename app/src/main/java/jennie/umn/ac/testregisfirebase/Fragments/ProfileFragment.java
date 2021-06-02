@@ -69,7 +69,7 @@ public class ProfileFragment extends Fragment {
         profileid = prefs.getString("profileid", "none");
 
         image_profile = view.findViewById(R.id.image_profile);
-        btnback = view.findViewById(R.id.btn_back);
+        //btnback = view.findViewById(R.id.btn_back);
         posts = view.findViewById(R.id.posts);
         bio = view.findViewById(R.id.bio);
         username = view.findViewById(R.id.username);
