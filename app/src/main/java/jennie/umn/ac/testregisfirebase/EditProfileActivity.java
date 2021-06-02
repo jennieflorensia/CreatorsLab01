@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.net.InetAddresses;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -36,9 +37,10 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
 
+import jennie.umn.ac.testregisfirebase.Fragments.ProfileFragment;
 import jennie.umn.ac.testregisfirebase.Model.User;
 
-public class EditProfileActivity extends AppCompatActivity {
+public class   EditProfileActivity extends AppCompatActivity {
 
     ImageView close, image_profile;
     TextView save, tv_change;
@@ -59,7 +61,7 @@ public class EditProfileActivity extends AppCompatActivity {
         image_profile = findViewById(R.id.image_profile);
         save = findViewById(R.id.save);
         tv_change = findViewById(R.id.tv_change);
-        fullname = findViewById(R.id.fullname);
+        //fullname = findViewById(R.id.fullname);
         username = findViewById(R.id.username);
         bio = findViewById(R.id.bio);
 
@@ -98,21 +100,32 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
 
+        image_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CropImage.activity()
+                        .setAspectRatio(1,1)
+                        .setCropShape(CropImageView.CropShape.OVAL)
+                        .start(EditProfileActivity.this);
+            }
+        });
+
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //fullname.getText().toString(),
                 updateProfile(username.getText().toString(),
                         bio.getText().toString());
+                Toast.makeText(EditProfileActivity.this, "Save Successfully", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
 
-    private void updateProfile(String toString, String toString1) {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("User").child(firebaseUser.getUid());
+    private void updateProfile(String username, String bio) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
 
         HashMap<String, Object> hashMap = new HashMap<>();
-        //hashMap.put("fullname", fullname);
         hashMap.put("username", username);
         hashMap.put("bio", bio);
 
