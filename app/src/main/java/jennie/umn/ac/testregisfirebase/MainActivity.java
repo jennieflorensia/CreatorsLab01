@@ -82,9 +82,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             case R.id.nav_search:
                 fragment = new SearchFragment();
                 break;
-            case R.id.nav_comm:
-                fragment = new NotificationFragment();
-                break;
+//            case R.id.nav_comm:
+//                fragment = new NotificationFragment();
+//                break;
             case id.nav_profile:
                 SharedPreferences.Editor editor = getSharedPreferences("PREFS", MODE_PRIVATE).edit();
                 editor.putString("profileid", FirebaseAuth.getInstance().getCurrentUser().getUid());
