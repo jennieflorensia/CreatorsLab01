@@ -7,11 +7,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.net.InetAddresses;
+//import android.net.InetAddresses;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
-import com.rengwuxian.materialedittext.MaterialEditText;
+//import com.rengwuxian.materialedittext.MaterialEditText;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -44,7 +46,7 @@ public class   EditProfileActivity extends AppCompatActivity {
 
     ImageView close, image_profile;
     TextView save, tv_change;
-    MaterialEditText fullname, username, bio;
+    EditText fullname, username, bio;
 
     FirebaseUser firebaseUser;
 
@@ -95,7 +97,7 @@ public class   EditProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 CropImage.activity()
                         .setAspectRatio(1,1)
-                        .setCropShape(CropImageView.CropShape.OVAL)
+                        .setCropShape(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P ? CropImageView.CropShape.RECTANGLE : CropImageView.CropShape.OVAL)
                         .start(EditProfileActivity.this);
             }
         });
@@ -105,7 +107,7 @@ public class   EditProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 CropImage.activity()
                         .setAspectRatio(1,1)
-                        .setCropShape(CropImageView.CropShape.OVAL)
+                        .setCropShape(Build.VERSION.SDK_INT >= Build.VERSION_CODES.P ? CropImageView.CropShape.RECTANGLE : CropImageView.CropShape.OVAL)
                         .start(EditProfileActivity.this);
             }
         });

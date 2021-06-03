@@ -3,11 +3,13 @@ package jennie.umn.ac.testregisfirebase.Adapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.Image;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -33,6 +35,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     private Context mContext;
     private List<Notification> mNotification;
+    private String publisherid;
 
     public NotificationAdapter(Context mContext, List<Notification> mNotification) {
         this.mContext = mContext;
@@ -51,8 +54,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         Notification notification = mNotification.get(position);
         holder.text.setText(notification.getText());
+        publisherid = notification.getUserid();
 
-        getUserInfo(holder.image_profile, holder.username, notification.getUserid());
+        getUserInfo(holder.image_profile, holder.username, publisherid);
 
         if(notification.isIspost()){
             holder.post_image.setVisibility(View.VISIBLE);
@@ -100,7 +104,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             image_profile = itemView.findViewById(R.id.image_profile);
             post_image = itemView.findViewById(R.id.post_image);
             username = itemView.findViewById(R.id.username);
-            text = itemView.findViewById(R.id.comment);
+            text = itemView.findViewById(R.id.text);
         }
     }
 
