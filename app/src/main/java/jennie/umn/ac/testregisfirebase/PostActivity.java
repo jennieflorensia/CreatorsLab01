@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,10 +33,13 @@ import com.google.firebase.storage.StorageTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.File;
+import java.net.URI;
 import java.util.HashMap;
 
 public class PostActivity extends AppCompatActivity {
 
+    private static final int REQUEST_TAKE_PHOTO = 1;
     Uri imageUri;
     String myUrl = "";
     StorageTask uploadTask;
@@ -79,6 +85,15 @@ public class PostActivity extends AppCompatActivity {
         ContentResolver contentResolver = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
+
+    private void dispatchTakePictureIntent(){
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        takePictureIntent.resolveActivity(this.getPackageManager());
+        File photofile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "pickImageResult.jpeg");
+        Uri photoURI = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", photofile);
+        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+        startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
     }
 
     private void uploadImage(){
@@ -143,7 +158,19 @@ public class PostActivity extends AppCompatActivity {
             imageUri = result.getUri();
 
             image_added.setImageURI(imageUri);
-        }else{
+        } else if(requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK){
+
+            File file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "pickImageResult.jpeg");
+
+            Uri uri = FileProvider.getUriForFile(this, this.getApplicationContext().getPackageName() + ".fileprovider", file);
+            if(uri != null){
+                CropImage.activity(uri)
+                        .setAspectRatio(1, 1)
+                        .setCropShape(CropImageView.CropShape.RECTANGLE)
+                        .start(PostActivity.this);
+            }
+
+        } else{
             Toast.makeText(this, "Something went wrong!", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(PostActivity.this, MainActivity.class));
             finish();
