@@ -87,15 +87,6 @@ public class PostActivity extends AppCompatActivity {
         return mime.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
-    private void dispatchTakePictureIntent(){
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        takePictureIntent.resolveActivity(this.getPackageManager());
-        File photofile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "pickImageResult.jpeg");
-        Uri photoURI = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", photofile);
-        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-        startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-    }
-
     private void uploadImage(){
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Posting");
@@ -158,17 +149,6 @@ public class PostActivity extends AppCompatActivity {
             imageUri = result.getUri();
 
             image_added.setImageURI(imageUri);
-        } else if(requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK){
-
-            File file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "pickImageResult.jpeg");
-
-            Uri uri = FileProvider.getUriForFile(this, this.getApplicationContext().getPackageName() + ".fileprovider", file);
-            if(uri != null){
-                CropImage.activity(uri)
-                        .setAspectRatio(1, 1)
-                        .setCropShape(CropImageView.CropShape.RECTANGLE)
-                        .start(PostActivity.this);
-            }
 
         } else{
             Toast.makeText(this, "Something went wrong!", Toast.LENGTH_SHORT).show();
